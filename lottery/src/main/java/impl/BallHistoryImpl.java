@@ -1,9 +1,9 @@
 package impl;
 
-import model.BallHistory;
-
 public class BallHistoryImpl {
-	public BallHistory getHistoryByDataNo(int dataNo) {
-		return null;
+	public int[] getHistoryByDataNo(int dataNo) {
+		
+		int[] historys = new int[6];
+		return historys;
 	}
 }

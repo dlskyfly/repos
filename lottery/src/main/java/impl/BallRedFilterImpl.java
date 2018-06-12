@@ -7,20 +7,18 @@ import model.BallRedFilter;
 
 public class BallRedFilterImpl {
 	
-	private List<BallRedFilter> datas = new ArrayList<BallRedFilter>();
+	private List<List<Integer>> datas = new ArrayList<List<Integer>>();
 	
 	public void fillFromBase() {
 		delAll();
 		
 	}
 
-	public List<BallRedFilter> getAll() {
-		datas=null;
+	public List<List<Integer>> getAll() {
 		return datas;
-		
 	}
 	
-	public void saveToDb(List<BallRedFilter> datas) {
+	public void saveToDb(List<List<Integer>> datas) {
 		
 	}
 	
