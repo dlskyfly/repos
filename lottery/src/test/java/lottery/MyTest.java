@@ -19,8 +19,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import dao.BaseDao;
 import mapper.BallHistoryMapper;
-import mapper.BaseDao;
 import model.BallHistory;
 
 /**

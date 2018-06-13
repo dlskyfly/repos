@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.apache.ibatis.session.SqlSession;
 
-import mapper.BaseDao;
+import dao.BaseDao;
 import model.BallHistory;
 
 public class BallHistoryImpl extends BaseDao {

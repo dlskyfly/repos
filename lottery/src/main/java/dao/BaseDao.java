@@ -9,7 +9,7 @@
  * @Copyright  2018 http://www.dlmzk.com Inc. All rights reserved.
  */
 
-package mapper;
+package dao;
 
 import java.io.IOException;
 import java.io.InputStream;
