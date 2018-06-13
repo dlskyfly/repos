@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BallHistoryMapper">
+  <select id="getHistoryByDataNo" resultType="BallHistory">
+    select red_1 red1, red_2 red2, red_3 red3, red_4 red4, red_5 red5, red_6 red6 from Ball_History where Date_No = #{dateNo}
+  </select>
+</mapper>
