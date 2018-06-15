@@ -10,7 +10,8 @@
 
 package lottery;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
@@ -20,8 +21,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import dao.BaseDao;
-import mapper.BallHistoryMapper;
-import model.BallHistory;
+import filter.JumpNumber;
+import impl.BallRedFilterImpl;
+import model.BallRedFilter;
 
 /**
  * @ClassName  MyTest
@@ -50,18 +52,15 @@ public class MyTest {
         BaseDao baseDao = new BaseDao();
         SqlSession sqlSession = null;
 
-        try {
-            sqlSession = baseDao.getSqlSession();
-            BallHistoryMapper ballHistoryMapper = sqlSession.getMapper(BallHistoryMapper.class);
-            BallHistory ballHistory = ballHistoryMapper.getHistoryByDataNo(2018001);
-            System.out.println(ballHistory);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            sqlSession.close();
-        }
+//            sqlSession = baseDao.getSqlSession();
+//            BallHistoryImpl ballHistoryImpl = new BallHistoryImpl();
+//            List<Integer> list = ballHistoryImpl.getHistoryByDataNo(2016147);
+//            System.out.println(list);
+            JumpNumber jumpNumber = new JumpNumber();
+
+            List<BallRedFilter> datas = new BallRedFilterImpl().getRed();
+            jumpNumber.filter(Arrays.asList(0,1), datas, 2016147);
 
     }
 
 }
-

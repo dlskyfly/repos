@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BallRedBaseMapper">
+	<select id="getAll" resultType="BallRedBase">
+		SELECT RED_1, RED_2, RED_3,
+		RED_4, RED_5, RED_6 FROM BALL_RED_BASE
+	</select>
+</mapper>

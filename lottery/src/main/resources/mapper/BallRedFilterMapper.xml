@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BallRedFilterMapper">
+	<select id="getRed" resultType="BallRedFilter">
+		SELECT RED_1, RED_2, RED_3,
+		RED_4, RED_5, RED_6 FROM BALL_RED_FILTER
+	</select>
+
+	<update id="truncateTable">
+		TRUNCATE TABLE BALL_RED_FILTER
+	</update>
+
+	<insert id="insertByBatch" parameterType="java.util.List">
+		insert into BALL_RED_FILTER (RED_1, RED_2, RED_3, RED_4, RED_5, RED_6)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.red1,jdbcType=INTEGER},
+			#{item.red2,jdbcType=INTEGER},
+			#{item.red3,jdbcType=INTEGER},
+			#{item.red4,jdbcType=INTEGER},
+			#{item.red5,jdbcType=INTEGER},
+			#{item.red6,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+</mapper>

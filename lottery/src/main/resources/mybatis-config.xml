@@ -4,20 +4,22 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<settings>
-	    <setting name="logImpl" value="LOG4J"/>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="logImpl" value="LOG4J" />
 	</settings>
-    
-    <typeAliases>
-        <package name="model"/>
-    </typeAliases>
-	  
-    <environments default="development">
+
+	<typeAliases>
+		<package name="model" />
+	</typeAliases>
+
+	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC">
-                <property name="" value=""/>
-            </transactionManager>
+				<property name="" value="" />
+			</transactionManager>
 			<dataSource type="UNPOOLED">
-				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="driver"
+					value="oracle.jdbc.driver.OracleDriver" />
 				<property name="url"
 					value="jdbc:oracle:thin:@192.168.115.133:1521:test" />
 				<property name="username" value="scott" />
@@ -26,7 +28,9 @@
 		</environment>
 	</environments>
 
-    <mappers>
-        <mapper resource="mapper/BallHistoryMapper.xml"/>
-    </mappers>
+	<mappers>
+		<mapper resource="mapper/BallHistoryMapper.xml" />
+		<mapper resource="mapper/BallRedFilterMapper.xml" />
+		<mapper resource="mapper/BallRedBaseMapper.xml" />
+	</mappers>
 </configuration>
