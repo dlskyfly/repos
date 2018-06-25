@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dao.BaseDao;
 import mapper.BallHistoryMapper;
 import model.BallHistory;
 
 public class BallHistoryImpl extends BaseDao {
+
+    private static Logger logger = LoggerFactory.getLogger("lottery");
 
 	public List<Integer> getHistoryByDataNo(int dataNo) {
 	    SqlSession sqlSession = null;
@@ -27,7 +31,7 @@ public class BallHistoryImpl extends BaseDao {
             result.add(ballHistory.getRed6());
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("ERR", e);
         }finally {
             sqlSession.close();
         }

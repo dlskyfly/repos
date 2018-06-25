@@ -57,10 +57,9 @@ public class MyTest {
 //            List<Integer> list = ballHistoryImpl.getHistoryByDataNo(2016147);
 //            System.out.println(list);
             JumpNumber jumpNumber = new JumpNumber();
-
-            List<BallRedFilter> datas = new BallRedFilterImpl().getRed();
+            BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
+            ballRedFilterImpl.fillFromBase();
+            List<BallRedFilter> datas = ballRedFilterImpl.getRed();
             jumpNumber.filter(Arrays.asList(0,1), datas, 2016147);
-
     }
-
 }

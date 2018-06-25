@@ -12,17 +12,14 @@
 		TRUNCATE TABLE BALL_RED_FILTER
 	</update>
 
-	<insert id="insertByBatch" parameterType="java.util.List">
+	<insert id="insertByBatch" parameterType="java.util.List"
+		useGeneratedKeys="false">
 		insert into BALL_RED_FILTER (RED_1, RED_2, RED_3, RED_4, RED_5, RED_6)
-		values
 		<foreach collection="list" item="item" index="index"
-			separator=",">
-			(#{item.red1,jdbcType=INTEGER},
-			#{item.red2,jdbcType=INTEGER},
-			#{item.red3,jdbcType=INTEGER},
-			#{item.red4,jdbcType=INTEGER},
-			#{item.red5,jdbcType=INTEGER},
-			#{item.red6,jdbcType=INTEGER})
+			separator=" union all ">
+			select
+			#{item.red1},#{item.red2},#{item.red3},#{item.red4},#{item.red5},#{item.red6}
+			from dual
 		</foreach>
 	</insert>
 </mapper>

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dao.BaseDao;
 import mapper.BallRedBaseMapper;
@@ -26,6 +28,8 @@ import model.BallRedBase;
  */
 public class BallRedBaseImpl extends BaseDao {
 
+    private static Logger logger = LoggerFactory.getLogger("lottery");
+
     public List<BallRedBase> getAll() {
         SqlSession sqlSession = null;
         List<BallRedBase> result = new ArrayList<BallRedBase>();
@@ -34,7 +38,7 @@ public class BallRedBaseImpl extends BaseDao {
             BallRedBaseMapper ballRedBaseMapper = sqlSession.getMapper(BallRedBaseMapper.class);
             result = ballRedBaseMapper.getAll();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("ERR", e);
         }finally {
             sqlSession.close();
         }
