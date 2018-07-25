@@ -13,6 +13,7 @@ package filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import comm.Common;
 import impl.BallRedFilterImpl;
 import model.BallRedFilter;
 
@@ -27,7 +28,20 @@ public class PrimeComposite {
 
     private static final int[] PRIMES = {2,3,5,7,11,13,17,19,23,29,31};
 
-    public void filter(List<Integer> cond, List<BallRedFilter> datas) {
+    public static void filter(String[] recCond) {
+
+        if(recCond == null) {
+            return;
+        }
+
+        BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
+
+        //取得红球
+        List<BallRedFilter> datas = ballRedFilterImpl.getRed();
+
+        //post上传参数由String转换成Integer类型
+        int[] cond = Common.strarrayToIntarray(recCond);
+
         // 质合比处理结果，保存供给下个处理使用
         List<BallRedFilter> saveData = new ArrayList<BallRedFilter>();
 
@@ -62,11 +76,10 @@ public class PrimeComposite {
             count = 0;
         }
 
-        BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
         ballRedFilterImpl.saveToDb(saveData);
     }
 
-    private boolean isPrime(Integer number) {
+    private static boolean isPrime(Integer number) {
         boolean result = false;
         for (int i = 0; i < PRIMES.length; i++) {
             if(number == PRIMES[i]) {

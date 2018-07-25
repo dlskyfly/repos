@@ -7,19 +7,42 @@
 		SELECT RED_1, RED_2, RED_3,
 		RED_4, RED_5, RED_6 FROM BALL_RED_FILTER
 	</select>
+	<select id="getRedFromRandom" resultType="BallRedBase">
+		SELECT RED_1, RED_2, RED_3,
+		RED_4, RED_5, RED_6 FROM (SELECT RED_1,
+		RED_2, RED_3,
+		RED_4, RED_5, RED_6 FROM BALL_RED_FILTER ORDER BY
+		DBMS_RANDOM.RANDOM)
+		WHERE ROWNUM <![CDATA[ < ]]>
+		#{countNum}
+	</select>
+	<select id="getCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM
+		BALL_RED_FILTER
+	</select>
 
 	<update id="truncateTable">
 		TRUNCATE TABLE BALL_RED_FILTER
 	</update>
 
+	<!-- <insert id="insertByBatch" parameterType="java.util.List" useGeneratedKeys="false"> 
+		insert into BALL_RED_FILTER (RED_1, RED_2, RED_3, RED_4, RED_5, RED_6) <foreach 
+		collection="list" item="item" index="index" separator=" union all "> select 
+		#{item.red1},#{item.red2},#{item.red3},#{item.red4},#{item.red5},#{item.red6} 
+		from dual </foreach> </insert> -->
+
 	<insert id="insertByBatch" parameterType="java.util.List"
 		useGeneratedKeys="false">
-		insert into BALL_RED_FILTER (RED_1, RED_2, RED_3, RED_4, RED_5, RED_6)
-		<foreach collection="list" item="item" index="index"
-			separator=" union all ">
-			select
-			#{item.red1},#{item.red2},#{item.red3},#{item.red4},#{item.red5},#{item.red6}
-			from dual
+		BEGIN
+		<foreach collection="list" item="item" separator=";">
+			insert into
+			BALL_RED_FILTER (RED_1, RED_2, RED_3, RED_4, RED_5, RED_6)
+			VALUES
+			(#{item.red1},#{item.red2},#{item.red3},#{item.red4},#{item.red5},#{item.red6})
 		</foreach>
+		;END;
+	</insert>
+	<insert id="postFromBase" statementType="CALLABLE">
+		{call post_from_base}
 	</insert>
 </mapper>

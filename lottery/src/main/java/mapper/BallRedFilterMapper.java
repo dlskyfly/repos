@@ -24,22 +24,13 @@ import model.BallRedFilter;
 public interface BallRedFilterMapper {
     List<BallRedFilter> getRed();
 
-    /**
-     * @Title  truncateTable
-     * @Description  TODO
-     * @return void
-     * @throws
-     */
+    List<BallRedFilter> getRedFromRandom(int countNum);
+
+    int getCount();
 
     void truncateTable();
 
-    /**
-     * @Title  insertByBatch
-     * @Description  TODO
-     * @param datas
-     * @return void
-     * @throws
-     */
-
     int insertByBatch(List<BallRedFilter> datas);
+
+    void postFromBase();
 }

@@ -50,6 +50,36 @@ public class BallRedFilterImpl extends BaseDao {
         return results;
     }
 
+    public List<BallRedFilter> getRedFromRandom(int countNum) {
+        SqlSession sqlSession = null;
+        List<BallRedFilter> results = new ArrayList<BallRedFilter>();
+        try {
+            sqlSession = getSqlSession();
+            BallRedFilterMapper mapper = sqlSession.getMapper(BallRedFilterMapper.class);
+            results = mapper.getRedFromRandom(countNum);
+        } catch (IOException e) {
+            logger.error("ERR", e);
+        } finally {
+            sqlSession.close();
+        }
+        return results;
+    }
+
+    public int getCount() {
+        SqlSession sqlSession = null;
+        int result = 0;
+        try {
+            sqlSession = getSqlSession();
+            BallRedFilterMapper mapper = sqlSession.getMapper(BallRedFilterMapper.class);
+            result = mapper.getCount();
+        } catch (IOException e) {
+            logger.error("ERR", e);
+        } finally {
+            sqlSession.close();
+        }
+        return result;
+    }
+
     public void delAll() {
         SqlSession sqlSession = null;
         try {
@@ -95,5 +125,19 @@ public class BallRedFilterImpl extends BaseDao {
     public void saveToDb(List<BallRedFilter> datas) {
         delAll();
         insertByBatch(datas);
+    }
+
+    public void postFromBase() {
+        SqlSession sqlSession = null;
+        try {
+            sqlSession = getSqlSession();
+            BallRedFilterMapper mapper = sqlSession.getMapper(BallRedFilterMapper.class);
+            mapper.postFromBase();
+            sqlSession.commit();
+        } catch (IOException e) {
+            logger.error("ERR", e);
+        } finally {
+            sqlSession.close();
+        }
     }
 }

@@ -13,6 +13,7 @@ package filter;
 import java.util.ArrayList;
 import java.util.List;
 
+import comm.Common;
 import impl.BallRedFilterImpl;
 import model.BallRedFilter;
 
@@ -25,7 +26,20 @@ import model.BallRedFilter;
 
 public class ParityRatio {
 
-    public void filter(List<Integer> cond, List<BallRedFilter> datas) {
+    public static void filter(String[] recCond) {
+
+        if(recCond == null) {
+            return;
+        }
+
+        BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
+
+        //取得红球
+        List<BallRedFilter> datas = ballRedFilterImpl.getRed();
+
+        //post上传参数由String转换成Integer类型
+        int[] cond = Common.strarrayToIntarray(recCond);
+
         // 奇偶比处理结果，保存供给下个处理使用
         List<BallRedFilter> saveData = new ArrayList<BallRedFilter>();
 
@@ -60,7 +74,6 @@ public class ParityRatio {
             count = 0;
         }
 
-        BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
         ballRedFilterImpl.saveToDb(saveData);
     }
 }

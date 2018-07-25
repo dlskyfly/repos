@@ -25,11 +25,25 @@ import model.BallRedFilter;
 public class TailNumber {
 
     // time为同尾号出现最多次数
-    public void filter(List<Integer> cond, List<BallRedFilter> datas, int time) {
+    public static void filter(String recGroup, String recTimes) {
+        if (recGroup == null || recTimes == null) {
+            return;
+        }
+
+        BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
+
+        // 取得红球
+        List<BallRedFilter> datas = ballRedFilterImpl.getRed();
+
+        // post上传参数由String转换成Integer类型
+        int group = Integer.parseInt(recGroup);
+        // post上传参数由String转换成Integer类型
+        int times = Integer.parseInt(recTimes);
+
         // 同尾号处理结果，保存供给下个处理使用
         List<BallRedFilter> saveData = new ArrayList<BallRedFilter>();
 
-        int count = 0;// 同尾号出现次数(如1,11,2,12，为2次)
+        int countGrp = 0;// 同尾号组数(如1,11,2,12，为2次)
         for (BallRedFilter data : datas) {
             // 尾数数组
             int[] dataArray = new int[6];
@@ -42,33 +56,38 @@ public class TailNumber {
 
             Arrays.sort(dataArray);
 
+            boolean isMatchNum = false;//出现的号码中是否有相同了的。false：还没有出现相同的
+            int countTimes = 1; // 相同尾号出现个数(如1,11,21,31，为4次)
+            int maxCountTimes = 1;  //相同尾号出现了的最多个数
+
             for (int x = 0; x < 5; x++) {
-                int countNumber = 0; // 同尾号出现个数(如1,11,21,31，为4次)
-                for (int y = x + 1; y < 6; y++) {
-                    if (dataArray[x] == dataArray[y]) {
-                        countNumber++;
-                        count++;
-                    } else if(dataArray[x] < dataArray[y]) {
-                        break;
+                if (dataArray[x] == dataArray[x+1]) {//如果N与N+1相同
+                    if(isMatchNum == false) {//首次出现相同号码
+                        isMatchNum= true;
+                        countGrp++;//组数加一
                     }
-                }
-
-                //同样尾号球的个数超过规定限制
-                if(countNumber > time) {
-                    break;
+                    countTimes++;//相同尾号组出现的个数加一
+                } else {//如果N与N+1不同
+                    isMatchNum = false;//下次的匹配将重置为首次
+                    if(countTimes > maxCountTimes) {//保留当前相同尾号出现的个数
+                        maxCountTimes = countTimes;
+                    }
+                    countTimes=1;
                 }
             }
 
-            for (int i : cond) {
-                if (count == i) {
+            if(group == countGrp) {//如果组数符合要求
+                if((times == 1) || ((maxCountTimes == times)  && (times > 1)) ) {//相同尾号出现的个数也符合要求
                     saveData.add(data);
-                    break;
                 }
             }
-            count = 0;
+
+            //初始化或复原状态
+            isMatchNum = false;
+            countGrp = 0;
+            maxCountTimes = 1;
         }
 
-        BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
         ballRedFilterImpl.saveToDb(saveData);
     }
 }

@@ -11,6 +11,8 @@
 
 package mapper;
 
+import java.util.List;
+
 import model.BallHistory;
 
 /**
@@ -22,5 +24,6 @@ import model.BallHistory;
 
 public interface BallHistoryMapper {
     BallHistory getHistoryByDataNo(int dataNo);
+    List<Integer> getHistoryDate();
+    BallHistory getHistoryDate2(int dataNo);
 }
-

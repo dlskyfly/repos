@@ -3,7 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.BallHistoryMapper">
-  <select id="getHistoryByDataNo" resultType="model.BallHistory">
-    select red_1, red_2, red_3, red_4, red_5, red_6 from Ball_History where Date_No = #{dateNo}
-  </select>
+	<select id="getHistoryByDataNo" resultType="model.BallHistory">
+		select red_1, red_2,
+		red_3, red_4, red_5, red_6 from Ball_History where
+		Date_No = #{dateNo}
+	</select>
+	<select id="getHistoryDate" resultType="model.BallHistory">
+		select Date_No from
+		Ball_History order by Date_No DESC
+	</select>
+	<select id="getHistoryDate2" resultType="model.BallHistory">
+		select red_1, red_2, red_3, red_4, red_5, red_6 from Ball_History
+		where Date_No = (
+		select max(Date_No)
+		from Ball_History
+		where Date_No <![CDATA[ < ]]>
+		#{dateNo})
+	</select>
 </mapper>

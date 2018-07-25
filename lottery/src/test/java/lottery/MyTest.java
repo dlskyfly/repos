@@ -10,7 +10,6 @@
 
 package lottery;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -60,6 +59,6 @@ public class MyTest {
             BallRedFilterImpl ballRedFilterImpl = new BallRedFilterImpl();
             ballRedFilterImpl.fillFromBase();
             List<BallRedFilter> datas = ballRedFilterImpl.getRed();
-            jumpNumber.filter(Arrays.asList(0,1), datas, 2016147);
+//            jumpNumber.filter(Arrays.asList(0,1), datas, 2016147);
     }
 }
